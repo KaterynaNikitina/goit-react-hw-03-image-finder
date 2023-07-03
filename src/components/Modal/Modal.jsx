@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
-
-import { createPortal } from 'react-dom';
-// import { Overlay, ImageWrapper } from 'components/Modal/Modal.styled';
-import { Overlay, ImageWrapper } from './Modal.styled';
-
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
+
+import { Overlay, ImageWrapper } from 'components/Modal/Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
   componentDidMount() {
-    window.addEventListener('keydown', this.habdleEscPress);
+    window.addEventListener('keydown', this.handleEscPress);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.habdleEscPress);
+    window.removeEventListener('keydown', this.handleEscPress);
   }
 
-  habdleEscPress = ({ code }) => {
+  handleEscPress = ({ code }) => {
     if (code === 'Escape') {
       this.props.onClose();
     }

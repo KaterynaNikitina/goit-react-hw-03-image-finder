@@ -32,6 +32,7 @@ export const Form = styled.form`
 export const SearchButton = styled.button`
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  background-color: yellow;
 `;
 
 export const Input = styled.input`

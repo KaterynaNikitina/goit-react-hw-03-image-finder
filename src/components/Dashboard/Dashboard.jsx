@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
 import { fetchImages } from 'servises/image-api';
+
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
