@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchImages } from 'servises/image-api';
 
@@ -20,6 +20,7 @@ export class Dashboard extends Component {
     totalHits: 0,
     showModal: false,
     modalImage: '',
+    error: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,8 +33,9 @@ export class Dashboard extends Component {
 
     if (this.state.query !== prevState.query) {
       setTimeout(() => {
-        toast.info(`We found ${this.state.totalHits} images!`)
-      },500)
+        (!this.state.error &&  toast.info(`We found ${this.state.totalHits} images!`)) 
+    }, 500)
+       
     }
   }
 
@@ -53,6 +55,8 @@ export class Dashboard extends Component {
       }));
       
     } catch (error) {
+      this.setState({ error });
+    
     } finally {
       this.setState({ loading: false });
     }
@@ -80,10 +84,11 @@ export class Dashboard extends Component {
         <Searchbar onSubmit={this.hadleFormSubmit} />
         <ImageGallery images={images} onShowModal={this.onShowModal} />
         {loading && <Loader />}
-        {images.length > 0 && page < totalPages && (
+        {images.length > 0 && !loading && page < totalPages && (
           <Button text="Load More" onClick={this.handleLoadMoreClick} />
         )}
         {showModal && <Modal onClose={this.toggleModal} item={modalImage}/>}
+        {this.state.error && toast.error('Something went wrong. Pls try later')}
         <ToastContainer
           position="top-right"
           autoClose={3000}
